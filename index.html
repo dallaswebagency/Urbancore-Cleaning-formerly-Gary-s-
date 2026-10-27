@@ -11,198 +11,267 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --night:#06344d;
+  --night:#04293e;
   --ink:#0a2535;
   --deep:#005880;
   --blue:#0088c0;
   --cyan:#38b0d8;
   --mist:#c8e0f0;
-  --pale:#eef6fb;
-  --white:#fff;
-  --line:rgba(0,88,128,.16);
+  --pale:#f1f7fb;
+  --line:rgba(0,88,128,.14);
   --head:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
   --body:"Figtree","Segoe UI",system-ui,sans-serif;
+  --r:26px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:var(--body);color:var(--ink);background:var(--white);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:var(--body);color:var(--ink);background:#fff;line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 ul{list-style:none}
-.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
-h1,h2,h3{font-family:var(--head);line-height:1.08;letter-spacing:-.02em}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;font-weight:700;font-size:16px;border:2px solid transparent;transition:.2s;cursor:pointer;font-family:var(--body)}
-.btn-fill{background:var(--cyan);color:var(--night)}
-.btn-fill:hover{background:#fff}
-.btn-line{border-color:rgba(255,255,255,.55);color:#fff}
+.wrap{width:min(1220px,100% - 40px);margin-inline:auto}
+h1,h2,h3{font-family:var(--head);line-height:1.04;letter-spacing:-.025em}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 28px;font-weight:700;font-size:16px;border:2px solid transparent;border-radius:999px;transition:.25s;cursor:pointer;font-family:var(--body)}
+.btn svg{width:18px;height:18px;transition:.25s}
+.btn:hover svg{transform:translateX(4px)}
+.btn-fill{background:linear-gradient(135deg,var(--cyan),#6fd0ee);color:var(--night);box-shadow:0 10px 30px rgba(56,176,216,.35)}
+.btn-fill:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(56,176,216,.5)}
+.btn-line{border-color:rgba(255,255,255,.4);color:#fff;background:rgba(255,255,255,.06);backdrop-filter:blur(6px)}
 .btn-line:hover{background:#fff;color:var(--night)}
 .btn-dark{background:var(--deep);color:#fff}
-.btn-dark:hover{background:var(--night)}
-.eyebrow{font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.eyebrow::before{content:"";width:22px;height:8px;background:linear-gradient(90deg,var(--blue) 0 8px,transparent 8px 11px,var(--cyan) 11px 19px,transparent 19px)}
+.btn-dark:hover{background:var(--night);transform:translateY(-2px)}
+.chip{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:18px}
+.chip i{display:inline-grid;grid-template-columns:repeat(2,7px);gap:2px}
+.chip i b{width:7px;height:7px;background:var(--blue)}
+.chip i b:nth-child(2){background:var(--cyan)}
+.chip i b:nth-child(3){background:var(--cyan);opacity:.5}
+.chip i b:nth-child(4){background:var(--deep)}
+
+/* reveal */
+.js .rv{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+.js .rv.d1{transition-delay:.08s}.js .rv.d2{transition-delay:.16s}.js .rv.d3{transition-delay:.24s}
 
 /* top bar */
-.topbar{background:var(--ink);color:#cfe3ef;font-size:14px}
+.topbar{background:var(--night);color:#bcd8e8;font-size:14px}
 .topbar .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-block:9px}
 .topbar a:hover{color:#fff}
 .topbar .tb-l,.topbar .tb-r{display:flex;gap:22px;flex-wrap:wrap}
 .topbar b{color:#fff;font-weight:600}
 
 /* header */
-header.site{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line)}
-header.site .wrap{display:flex;align-items:center;justify-content:space-between;height:78px;gap:20px}
+header.site{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.9);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;height:80px;gap:20px}
 .logo img{width:165px;height:auto}
-nav.main>ul{display:flex;gap:4px;align-items:center}
+nav.main>ul{display:flex;gap:2px;align-items:center}
 nav.main>ul>li{position:relative}
-nav.main>ul>li>a{display:block;padding:10px 14px;font-weight:600;font-size:15.5px;color:var(--ink)}
-nav.main>ul>li>a:hover{color:var(--blue)}
+nav.main>ul>li>a{display:block;padding:10px 14px;font-weight:600;font-size:15.5px;border-radius:999px;transition:.2s}
+nav.main>ul>li>a:hover{background:var(--pale);color:var(--deep)}
 .has-sub>a::after{content:"";display:inline-block;width:6px;height:6px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);margin-left:8px}
-.sub{position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--line);box-shadow:0 18px 40px rgba(6,52,77,.14);min-width:250px;padding:10px;opacity:0;visibility:hidden;transform:translateY(8px);transition:.18s}
+.sub{position:absolute;top:100%;left:0;margin-top:8px;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 60px rgba(4,41,62,.18);min-width:250px;padding:12px;opacity:0;visibility:hidden;transform:translateY(10px);transition:.2s}
+.sub::before{content:"";position:absolute;left:0;right:0;top:-12px;height:12px}
 .has-sub:hover>.sub,.has-sub:focus-within>.sub{opacity:1;visibility:visible;transform:none}
-.sub a{display:block;padding:9px 12px;font-size:15px;font-weight:500}
+.sub a{display:block;padding:9px 14px;font-size:15px;font-weight:500;border-radius:12px}
 .sub a:hover{background:var(--pale);color:var(--deep)}
-.sub .grp{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);padding:10px 12px 4px}
-.mega{display:grid;grid-template-columns:1fr 1fr;gap:6px;min-width:560px}
+.sub .grp{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);padding:10px 14px 4px}
+.mega{display:grid;grid-template-columns:1fr 1fr;gap:6px;min-width:580px}
 .head-cta{display:flex;align-items:center;gap:18px}
 .head-cta .tel{font-weight:700;color:var(--deep);font-size:15.5px;white-space:nowrap}
-.burger{display:none;background:none;border:2px solid var(--deep);width:46px;height:44px;cursor:pointer;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.head-cta .btn{padding:12px 22px}
+.burger{display:none;background:none;border:2px solid var(--deep);border-radius:14px;width:46px;height:44px;cursor:pointer;flex-direction:column;justify-content:center;align-items:center;gap:5px}
 .burger i{display:block;width:20px;height:2px;background:var(--deep)}
 
 /* hero */
-.hero{background:var(--night);color:#fff;position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(900px 500px at 85% 20%,rgba(56,176,216,.28),transparent 60%),linear-gradient(120deg,var(--night),#00476a 70%)}
-.hero .wrap{position:relative;display:grid;grid-template-columns:1.02fr .98fr;gap:56px;align-items:center;padding-block:84px 96px}
-.hero h1{font-size:clamp(40px,5.3vw,68px);font-weight:800;margin-bottom:22px}
-.hero h1 em{font-style:normal;color:var(--cyan)}
-.hero p.lead{font-size:clamp(18px,1.7vw,21px);color:#cfe6f2;max-width:30em;margin-bottom:34px}
-.hero .actions{display:flex;gap:14px;flex-wrap:wrap}
-.hero-visual{position:relative;min-height:520px}
-.hero-main{position:absolute;right:0;top:0;width:88%;height:490px;clip-path:polygon(18% 0,100% 0,100% 100%,0 100%,0 22%);}
-.hero-main img{width:100%;height:100%;object-fit:cover;object-position:60% 50%}
-.hero-small{position:absolute;left:0;bottom:6px;width:42%;aspect-ratio:1/1;border:8px solid var(--night);box-shadow:0 20px 40px rgba(0,0,0,.35)}
-.hero-small img{width:100%;height:100%;object-fit:cover;object-position:35% 55%}
-.q-card{position:absolute;right:-6px;bottom:-34px;background:#fff;color:var(--ink);padding:20px 22px;width:min(300px,72%);box-shadow:0 22px 50px rgba(0,0,0,.3);border-left:6px solid var(--cyan)}
-.q-card h3{font-size:17px;margin-bottom:10px;color:var(--deep)}
-.q-card ul{display:grid;gap:6px;font-size:14.5px}
-.q-card li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:6px}
-.q-card li:last-child{border:0;padding:0}
-.q-card li span{color:#4d6677}
-.q-card li a{font-weight:700;color:var(--deep)}
-.px{position:absolute;pointer-events:none}
-.px-a{top:36px;left:-24px;width:150px;opacity:.9}
-.px-b{bottom:16px;right:4%;width:110px;opacity:.6}
+.hero{background:var(--night);color:#fff;position:relative;overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background:
+  radial-gradient(700px 520px at 88% 12%,rgba(56,176,216,.38),transparent 62%),
+  radial-gradient(600px 500px at 5% 95%,rgba(0,136,192,.3),transparent 60%),
+  linear-gradient(160deg,#04293e,#00476a 80%)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;opacity:.5;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse at 70% 40%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse at 70% 40%,#000 20%,transparent 75%)}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding-block:78px 110px;min-height:700px}
+.hero h1{font-size:clamp(42px,5.6vw,80px);font-weight:800;margin-bottom:24px}
+.hero h1 span{background:linear-gradient(100deg,#6fd0ee,#38b0d8 50%,#9fe3f7);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{font-size:clamp(18px,1.7vw,22px);color:#cde6f3;max-width:28em;margin-bottom:34px}
+.hero .actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:46px}
+.stats{display:flex;gap:0;border-top:1px solid rgba(255,255,255,.18);padding-top:26px;max-width:520px}
+.stat{flex:1;padding-right:22px}
+.stat+.stat{padding-left:26px;border-left:1px solid rgba(255,255,255,.18)}
+.stat b{display:block;font-family:var(--head);font-size:44px;font-weight:800;line-height:1;color:#fff}
+.stat b em{font-style:normal;color:var(--cyan)}
+.stat span{font-size:14px;color:#a9cfe3;letter-spacing:.02em}
+.hv{position:relative;height:640px}
+.hv>*{position:absolute;will-change:transform;transition:transform .25s ease-out}
+.hv-main{right:0;top:0;width:72%;height:610px;clip-path:polygon(0 0,calc(100% - 80px) 0,100% 80px,100% 100%,80px 100%,0 calc(100% - 80px));box-shadow:0 40px 80px rgba(0,0,0,.4)}
+.hv-main img{width:100%;height:100%;object-fit:cover}
+.hv-main::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(4,41,62,.45))}
+.hv-a{left:0;bottom:30px;width:210px;height:270px;border-radius:22px;overflow:hidden;border:6px solid #fff;transform:rotate(-5deg);box-shadow:0 26px 50px rgba(0,0,0,.4)}
+.hv-a img,.hv-b img{width:100%;height:100%;object-fit:cover}
+.hv-b{left:4%;top:40px;width:210px;height:140px;border-radius:18px;overflow:hidden;border:6px solid #fff;transform:rotate(4deg);box-shadow:0 22px 44px rgba(0,0,0,.35)}
+.hv-card{right:-8px;bottom:6px;background:rgba(255,255,255,.14);backdrop-filter:blur(18px) saturate(1.5);border:1px solid rgba(255,255,255,.35);border-radius:22px;padding:20px 22px;width:285px;box-shadow:0 24px 50px rgba(0,0,0,.3)}
+.hv-card h3{font-size:19px;margin-bottom:10px;font-weight:700}
+.hv-card ul{display:grid;gap:8px;font-size:14.5px}
+.hv-card li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:8px}
+.hv-card li:last-child{border:0;padding:0}
+.hv-card li span{color:#cfe6f2}
+.hv-card li a{font-weight:700}
+.hv-card li a:hover{color:var(--cyan)}
+.px{position:absolute;pointer-events:none;z-index:-1}
+.px rect{animation:flt 6s ease-in-out infinite}
+.px rect:nth-child(2n){animation-delay:-2s;animation-duration:7s}
+.px rect:nth-child(3n){animation-delay:-4s}
+@keyframes flt{50%{transform:translateY(-10px)}}
+.px-a{top:60px;left:-30px;width:170px}
+
+/* marquee */
+.band{position:relative;z-index:3;margin-top:-52px;transform:rotate(-1.6deg);background:linear-gradient(90deg,var(--cyan),#7fd6ef);color:var(--night);overflow:hidden;box-shadow:0 20px 50px rgba(4,41,62,.25)}
+.band-track{display:flex;width:max-content;animation:mq 38s linear infinite}
+.band:hover .band-track{animation-play-state:paused}
+.band-track span{display:inline-flex;align-items:center;gap:30px;padding:19px 0 19px 30px;font-family:var(--head);font-weight:800;font-size:23px;white-space:nowrap}
+.band-track span::after{content:"";width:12px;height:12px;background:var(--night);transform:rotate(45deg)}
+@keyframes mq{to{transform:translateX(-50%)}}
 
 /* clients */
-.clients{background:#fff;border-bottom:1px solid var(--line)}
-.clients .wrap{display:flex;align-items:center;justify-content:space-between;gap:30px 44px;flex-wrap:wrap;padding-block:50px 38px}
-.clients img{height:48px;width:auto;object-fit:contain;filter:grayscale(1) contrast(.9);opacity:.72;transition:.2s}
-.clients img:hover{filter:none;opacity:1}
+.clients{background:#fff;padding-block:78px 30px}
+.clients .wrap{display:flex;align-items:center;justify-content:space-between;gap:30px 44px;flex-wrap:wrap}
+.clients img{height:48px;width:auto;object-fit:contain;filter:grayscale(1) contrast(.9);opacity:.6;transition:.25s}
+.clients img:hover{filter:none;opacity:1;transform:translateY(-3px)}
 
 /* services */
-.services{background:var(--pale);padding-block:96px}
-.sec-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:46px;flex-wrap:wrap}
-.sec-head h2{font-size:clamp(32px,4vw,50px);font-weight:800;max-width:14em}
-.svc{display:grid;grid-template-columns:.78fr 1.22fr;gap:0;background:#fff;box-shadow:0 30px 70px rgba(6,52,77,.1)}
-.svc-list{border-right:1px solid var(--line)}
-.svc-tab{display:flex;align-items:center;gap:18px;width:100%;text-align:left;background:#fff;border:0;border-bottom:1px solid var(--line);padding:20px 26px;cursor:pointer;font-family:var(--head);font-size:21px;font-weight:700;color:var(--ink);transition:.18s;position:relative}
-.svc-tab:last-child{border-bottom:0}
-.svc-tab .n{font-family:var(--body);font-size:13px;font-weight:700;color:var(--blue);width:26px}
-.svc-tab .ar{margin-left:auto;opacity:0;transform:translateX(-8px);transition:.18s;color:#fff}
-.svc-tab:hover{background:var(--pale)}
-.svc-tab[aria-selected="true"]{background:var(--deep);color:#fff}
-.svc-tab[aria-selected="true"] .n{color:var(--cyan)}
-.svc-tab[aria-selected="true"] .ar{opacity:1;transform:none}
-.svc-panel{display:none;grid-template-rows:300px auto}
-.svc-panel.on{display:grid}
-.svc-img{position:relative;overflow:hidden;background:var(--deep)}
-.svc-img img{width:100%;height:100%;object-fit:cover}
-.svc-img.pxbg{background:linear-gradient(135deg,var(--deep),var(--blue))}
-.svc-img.pxbg svg{position:absolute;right:30px;bottom:24px;width:260px;opacity:.9}
-.svc-body{padding:34px 40px 40px}
-.svc-body h3{font-size:30px;margin-bottom:12px;font-weight:800}
-.svc-body p{color:#38505f;margin-bottom:26px;max-width:36em}
+.services{padding-block:80px 100px;background:#fff;position:relative}
+.sec-head{margin-bottom:46px}
+.sec-head h2{font-size:clamp(34px,4.4vw,58px);font-weight:800;max-width:13em}
+.bento{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:320px;gap:18px}
+.bc{position:relative;border-radius:var(--r);overflow:hidden;color:#fff;display:block;isolation:isolate;background:var(--deep)}
+.bc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.bc::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(4,41,62,0) 8%,rgba(4,41,62,.78) 48%,rgba(4,41,62,.96) 100%);transition:.4s}
+.bc:hover img{transform:scale(1.08)}
+.bc:hover::before{background:linear-gradient(180deg,rgba(0,88,128,.15) 8%,rgba(4,41,62,.82) 48%,rgba(4,41,62,.97) 100%)}
+.bc .in{position:absolute;left:0;right:0;bottom:0;padding:24px 26px}
+.bc .no{position:absolute;top:20px;left:22px;font-weight:700;font-size:13px;letter-spacing:.1em;background:rgba(255,255,255,.18);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.35);padding:5px 12px;border-radius:999px}
+.bc h3{font-size:27px;font-weight:800;margin-bottom:8px}
+.bc p{text-shadow:0 1px 12px rgba(4,41,62,.6);font-size:15px;color:#dcedf6;line-height:1.5;margin-bottom:14px;max-width:34em}
+.bc .go{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14.5px;color:var(--cyan)}
+.bc .go svg{width:17px;height:17px;transition:.25s}
+.bc:hover .go svg{transform:translateX(5px)}
+.bc.a{grid-column:1/6;grid-row:1/3}
+.bc.b{grid-column:6/10}
+.bc.c{grid-column:10/13}
+.bc.d{grid-column:6/9}
+.bc.e{grid-column:9/13}
+.bc.f{grid-column:1/5}
+.bc.g{grid-column:5/9}
+.bc.h{grid-column:9/13}
+.bc.a h3{font-size:36px}
+.bc.a p{font-size:17px}
+.bc.px-card{background:linear-gradient(135deg,var(--deep),var(--blue))}
+.bc.a img{object-position:50% 55%}
+.bc.a::before{background:linear-gradient(180deg,rgba(4,41,62,0) 35%,rgba(4,41,62,.9) 100%)}
+.bc.a:hover::before{background:linear-gradient(180deg,rgba(0,88,128,.1) 30%,rgba(4,41,62,.93) 100%)}
 
 /* promise */
-.promise{background:var(--deep);color:#fff;padding-block:100px;position:relative;overflow:hidden}
-.promise::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;background:var(--blue);opacity:.35;transform:rotate(18deg)}
-.promise .wrap{position:relative;z-index:1}
-.promise .eyebrow{color:var(--cyan)}
-.promise-top{display:grid;grid-template-columns:1.2fr .8fr;gap:60px;align-items:start}
-.promise h2{font-size:clamp(34px,4.4vw,56px);font-weight:800;margin-bottom:22px}
-.promise p{color:#d6e9f4}
-.promise .strong{color:#fff;font-weight:700;font-size:19px;margin-top:20px}
-.areas{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 0}
-.areas span{border:1.5px solid rgba(255,255,255,.4);padding:7px 16px;font-weight:600;font-size:15px}
-.promise-img{position:relative}
-.promise-img img{width:100%;max-width:350px;margin-left:auto;clip-path:polygon(0 0,86% 0,100% 16%,100% 100%,0 100%)}
-.promise-img::before{content:"";position:absolute;left:12%;bottom:-16px;width:60%;height:60%;border:3px solid var(--cyan);z-index:-1}
-.crews{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:70px}
-.crew{border-top:3px solid var(--cyan);padding-top:22px}
-.crew b{font-family:var(--head);font-size:44px;font-weight:800;color:var(--cyan);display:block;line-height:1;margin-bottom:12px}
-.crew p{font-size:17px;color:#e6f2f9}
-.mission{margin-top:64px;padding:34px 38px;background:rgba(0,0,0,.22);border-left:6px solid var(--cyan);font-family:var(--head);font-size:clamp(20px,2.3vw,28px);line-height:1.3;font-weight:500;max-width:980px}
+.promise{background:var(--night);color:#fff;padding-block:110px;position:relative;overflow:hidden;isolation:isolate}
+.promise::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(640px 460px at 100% 0,rgba(56,176,216,.3),transparent 65%),radial-gradient(560px 420px at 0 100%,rgba(0,136,192,.28),transparent 65%)}
+.promise .chip{color:var(--cyan)}
+.promise-top{display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:center}
+.promise h2{font-size:clamp(36px,4.8vw,64px);font-weight:800;margin-bottom:24px}
+.promise p{color:#cfe6f2}
+.areas{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0}
+.areas span{border:1.5px solid rgba(255,255,255,.3);background:rgba(255,255,255,.06);padding:8px 18px;border-radius:999px;font-weight:600;font-size:15px;transition:.2s}
+.areas span:hover{background:var(--cyan);color:var(--night);border-color:var(--cyan)}
+.strong{color:#fff!important;font-weight:700;font-size:19px}
+.pimg{position:relative;justify-self:center;width:min(350px,100%)}
+.pimg img{width:100%;border-radius:var(--r);transform:rotate(3deg);box-shadow:0 36px 70px rgba(0,0,0,.45);border:6px solid #fff}
+.pimg::before{content:"";position:absolute;inset:-16px 16px 16px -16px;border:2px solid var(--cyan);border-radius:var(--r);transform:rotate(-3deg)}
+.crews{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:80px}
+.crew{background:linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.16);border-radius:var(--r);padding:32px 30px 34px;transition:.3s;position:relative;overflow:hidden}
+.crew:hover{transform:translateY(-8px);border-color:var(--cyan);background:linear-gradient(160deg,rgba(56,176,216,.22),rgba(255,255,255,.04))}
+.crew b{font-family:var(--head);font-size:64px;font-weight:800;line-height:1;display:block;margin-bottom:14px;background:linear-gradient(180deg,#8fe0f7,#38b0d8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.crew p{font-size:17.5px;color:#e6f2f9}
+.mission{margin-top:70px;display:grid;grid-template-columns:90px 1fr;gap:28px;align-items:start;max-width:1000px}
+.mission svg{width:90px}
+.mission p{font-family:var(--head);font-size:clamp(22px,2.6vw,34px);line-height:1.25;font-weight:500;color:#fff}
 
 /* testimonials */
-.testi{padding-block:100px;background:#fff}
-.testi h2{font-size:clamp(32px,4vw,50px);font-weight:800;margin-bottom:56px}
-.tgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:30px 36px;align-items:start}
-.tcard{position:relative;background:var(--pale);padding:44px 40px 34px;border-top:5px solid var(--blue)}
-.tcard:nth-child(even){margin-top:56px;border-top-color:var(--cyan);background:#fff;box-shadow:0 22px 56px rgba(6,52,77,.1)}
-.tcard::before{content:"\201C";position:absolute;top:-6px;left:28px;font-family:var(--head);font-size:110px;line-height:1;color:var(--blue);opacity:.25}
-.tcard blockquote{font-size:19px;line-height:1.55;margin-bottom:24px}
-.tcard .who{font-weight:700;color:var(--deep)}
-.tcard .who span{display:block;font-weight:500;color:#587080;font-size:15px}
+.testi{padding-block:110px;background:var(--pale);position:relative;overflow:hidden}
+.testi-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:44px;flex-wrap:wrap}
+.testi h2{font-size:clamp(34px,4.4vw,58px);font-weight:800}
+.tnav{display:flex;gap:10px}
+.tnav button{width:56px;height:56px;border-radius:50%;border:2px solid var(--deep);background:#fff;color:var(--deep);cursor:pointer;display:grid;place-items:center;transition:.2s}
+.tnav button:hover{background:var(--deep);color:#fff}
+.tnav svg{width:22px;height:22px}
+.tstage{position:relative;background:#fff;border-radius:34px;box-shadow:0 40px 90px rgba(4,41,62,.12);min-height:380px;overflow:hidden}
+.tstage::before{content:"\201C";position:absolute;right:40px;top:-40px;font-family:var(--head);font-weight:800;font-size:340px;line-height:1;color:var(--cyan);opacity:.18;pointer-events:none}
+.ts{position:absolute;inset:0;padding:56px 64px;display:flex;flex-direction:column;justify-content:space-between;opacity:0;visibility:hidden;transform:translateX(40px);transition:.6s cubic-bezier(.2,.7,.2,1)}
+.ts.on{opacity:1;visibility:visible;transform:none;position:relative}
+.ts blockquote{font-family:var(--head);font-size:clamp(23px,2.8vw,36px);line-height:1.28;font-weight:500;letter-spacing:-.01em;max-width:30em;margin-bottom:34px}
+.who{display:flex;align-items:center;gap:16px}
+.av{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--deep),var(--cyan));color:#fff;display:grid;place-items:center;font-family:var(--head);font-weight:800;font-size:19px}
+.who b{display:block;font-size:18px}
+.who span{color:#5b7484;font-size:15.5px}
+.dots{display:flex;gap:8px;margin-top:26px}
+.dots i{height:6px;width:26px;background:var(--mist);border-radius:6px;transition:.3s;cursor:pointer}
+.dots i.on{width:56px;background:var(--blue)}
 
 /* careers */
-.careers{background:var(--pale);padding-block:96px}
-.careers .wrap{display:grid;grid-template-columns:260px 1fr;gap:56px;align-items:start}
-.careers-photo{position:relative}
-.careers-photo img{width:225px;height:300px;object-fit:cover;clip-path:polygon(0 0,100% 0,100% 88%,78% 100%,0 100%)}
-.careers-photo::after{content:"";position:absolute;left:-14px;top:-14px;width:225px;height:300px;border:3px solid var(--blue);z-index:-1}
-.careers h2{font-size:clamp(32px,4vw,48px);font-weight:800;margin-bottom:30px}
-.jobs{display:grid;gap:18px}
-.job{background:#fff;padding:26px 30px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;border-left:5px solid var(--cyan)}
-.job h3{font-size:22px;margin-bottom:8px}
+.careers{padding-block:110px;background:#fff}
+.careers .wrap{display:grid;grid-template-columns:300px 1fr;gap:64px;align-items:center}
+.cphoto{position:relative}
+.cphoto img{width:225px;height:300px;object-fit:cover;border-radius:var(--r);box-shadow:0 30px 60px rgba(4,41,62,.25);position:relative;z-index:1}
+.cphoto::before{content:"";position:absolute;left:44px;top:30px;width:225px;height:300px;border-radius:var(--r);background:linear-gradient(135deg,var(--cyan),var(--blue));opacity:.9}
+.careers h2{font-size:clamp(34px,4.4vw,56px);font-weight:800;margin-bottom:32px}
+.jobs{display:grid;gap:16px}
+.job{background:var(--pale);border-radius:22px;padding:26px 30px;display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center;transition:.3s;border:1px solid transparent}
+.job:hover{background:#fff;border-color:var(--cyan);box-shadow:0 24px 50px rgba(4,41,62,.1);transform:translateY(-4px)}
+.job h3{font-size:23px;margin-bottom:8px}
 .job p{font-size:15.5px;color:#46606f;max-width:42em}
-.job a{font-weight:700;color:var(--deep);white-space:nowrap;border-bottom:2px solid var(--cyan);padding-bottom:2px}
-.job a:hover{color:var(--blue)}
-.careers .more{margin-top:26px}
+.job a{width:54px;height:54px;border-radius:50%;background:var(--deep);color:#fff;display:grid;place-items:center;transition:.25s}
+.job a:hover{background:var(--cyan);color:var(--night);transform:rotate(-45deg)}
+.job a svg{width:22px;height:22px}
+.careers .more{margin-top:28px}
 
 /* contact */
-.contact{background:linear-gradient(110deg,var(--night),var(--deep));color:#fff;padding-block:80px;position:relative;overflow:hidden}
-.contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative}
-.contact h2{font-size:clamp(34px,4.4vw,56px);font-weight:800;margin-bottom:26px}
-.cinfo{display:grid;gap:18px}
-.cinfo div{display:grid;grid-template-columns:120px 1fr;gap:14px;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:16px}
-.cinfo dt{font-weight:700;color:var(--cyan);font-size:13px;letter-spacing:.14em;text-transform:uppercase;padding-top:3px}
-.cinfo dd{font-size:19px;font-weight:500}
+.contact{padding-block:40px 110px;background:#fff}
+.cbox{background:linear-gradient(120deg,var(--night),var(--deep) 70%,var(--blue));color:#fff;border-radius:40px;padding:72px 64px;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;position:relative;overflow:hidden}
+.cbox .px{opacity:.35;z-index:0;position:absolute}
+.cbox>*:not(.px){position:relative;z-index:1}
+.cbox h2{font-size:clamp(34px,4.3vw,58px);font-weight:800;margin-bottom:30px}
+.cinfo{display:grid;gap:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(12px);border-radius:26px;padding:28px 30px}
+.cinfo div{display:grid;grid-template-columns:110px 1fr;gap:14px;border-bottom:1px solid rgba(255,255,255,.18);padding-bottom:14px}
+.cinfo div:last-child{border:0;padding:0}
+.cinfo dt{font-weight:700;color:var(--cyan);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;padding-top:5px}
+.cinfo dd{font-size:18.5px;font-weight:500}
 .cinfo a:hover{color:var(--cyan)}
 
 /* footer */
-footer.site{background:var(--ink);color:#b9d0de;padding-top:70px;font-size:15.5px}
-.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1.2fr 1fr;gap:44px;padding-bottom:56px}
-.flogo{background:#fff;display:inline-block;padding:12px 16px;margin-bottom:20px}
+footer.site{background:var(--ink);color:#b9d0de;padding-top:76px;font-size:15.5px}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1.2fr 1fr;gap:44px;padding-bottom:58px}
+.flogo{background:#fff;display:inline-block;padding:12px 16px;margin-bottom:20px;border-radius:14px}
 .flogo img{width:150px}
-footer h4{font-family:var(--head);color:#fff;font-size:17px;margin-bottom:16px;letter-spacing:0}
+footer h4{font-family:var(--head);color:#fff;font-size:18px;margin-bottom:16px}
 footer li{margin-bottom:9px}
 footer a:hover{color:var(--cyan)}
-.fb{display:inline-flex;align-items:center;gap:10px;font-weight:600;color:#fff}
-.fb svg{width:22px;height:22px}
+.fb{display:inline-flex;align-items:center;gap:10px;font-weight:600;color:#fff;border:1.5px solid rgba(255,255,255,.3);padding:9px 18px;border-radius:999px}
+.fb:hover{background:var(--cyan);border-color:var(--cyan);color:var(--night)!important}
+.fb svg{width:20px;height:20px}
 .fbar{border-top:1px solid rgba(255,255,255,.14);padding-block:22px;font-size:14.5px}
 .fbar .wrap{display:flex;justify-content:space-between;gap:14px 30px;flex-wrap:wrap}
 .fbar .l{display:flex;gap:20px;flex-wrap:wrap}
 .fbar a{color:#fff;font-weight:600}
 
 /* responsive */
-@media (max-width:1060px){
+@media (max-width:1100px){
   .head-cta .tel{display:none}
-  .hero .wrap{grid-template-columns:1fr;gap:40px;padding-block:60px 90px}
-  .hero-visual{min-height:500px;max-width:640px}
-  .svc{grid-template-columns:1fr}
-  .svc-list{border-right:0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr}
-  .svc-tab{font-size:18px;padding:16px 18px;border-right:1px solid var(--line)}
+  .hero .wrap{grid-template-columns:1fr;padding-block:60px 100px;min-height:0}
+  .hv{max-width:600px;height:620px;margin-inline:auto;width:100%}
+  .bento{grid-auto-rows:280px}
+  .bc.a{grid-column:1/7;grid-row:1/3}
+  .bc.b{grid-column:7/13}
+  .bc.c{grid-column:7/13}
+  .bc.d{grid-column:1/7}.bc.e{grid-column:7/13}
+  .bc.f{grid-column:1/7}.bc.g{grid-column:7/13}
+  .bc.h{grid-column:1/13}
   .promise-top{grid-template-columns:1fr}
-  .promise-img img{margin-left:0}
+  .pimg{justify-self:start;margin-left:16px}
   .fgrid{grid-template-columns:1fr 1fr}
 }
 @media (max-width:900px){
@@ -210,37 +279,48 @@ footer a:hover{color:var(--cyan)}
   nav.main{position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);display:none;max-height:calc(100vh - 120px);overflow:auto}
   nav.main.open{display:block}
   nav.main>ul{flex-direction:column;align-items:stretch;padding:10px 20px 20px;gap:0}
-  nav.main>ul>li>a{padding:14px 4px;border-bottom:1px solid var(--line)}
-  .sub{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;border:0;min-width:0;padding:0 0 6px 10px;display:none}
+  nav.main>ul>li>a{padding:14px 4px;border-radius:0;border-bottom:1px solid var(--line)}
+  .sub{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;border:0;min-width:0;padding:0 0 6px 10px;display:none;margin:0}
   .has-sub.open>.sub{display:block}
   .mega{grid-template-columns:1fr;min-width:0}
   .head-cta .btn{display:none}
-  .tgrid{grid-template-columns:1fr}
-  .tcard:nth-child(even){margin-top:0}
   .crews{grid-template-columns:1fr}
-  .careers .wrap{grid-template-columns:1fr}
-  .careers-photo{max-width:240px;margin-left:14px}
-  .contact .wrap{grid-template-columns:1fr}
+  .careers .wrap{grid-template-columns:1fr;gap:50px}
+  .cphoto{margin-left:6px}
+  .cbox{grid-template-columns:1fr;padding:50px 34px}
   .job{grid-template-columns:1fr}
+  .ts{padding:44px 34px}
 }
-@media (max-width:620px){
+@media (max-width:680px){
   body{font-size:16px}
   .topbar .tb-r{display:none}
-  .hero-visual{min-height:430px}
-  .hero-main{height:360px;width:92%}
-  .hero-small{width:40%;bottom:40px}
-  .q-card{bottom:-60px;width:78%}
-  .hero .wrap{padding-bottom:120px}
-  .svc-list{grid-template-columns:1fr}
-  .svc-tab{border-right:0}
-  .svc-panel{grid-template-rows:220px auto}
-  .svc-body{padding:26px 22px 30px}
-  .services,.promise,.testi,.careers{padding-block:70px}
+  .px-a{display:none}
+  .hv{height:520px}
+  .hv-main{width:80%;height:460px}
+  .hv-a{width:150px;height:200px;bottom:60px}
+  .hv-b{width:150px;height:100px;top:20px}
+  .hv-card{width:min(270px,80%);bottom:-6px}
+  .stats{flex-wrap:wrap;gap:20px 0}
+  .stat b{font-size:36px}
+  .bento{grid-template-columns:1fr;grid-auto-rows:310px}
+  .bc.a,.bc.b,.bc.c,.bc.d,.bc.e,.bc.f,.bc.g,.bc.h{grid-column:1/-1;grid-row:auto}
+  .bc.a{grid-row:span 2}
+  .band-track span{font-size:19px;padding-block:15px}
+  .services,.promise,.testi,.careers{padding-block:74px}
+  .ts{padding:36px 26px}
+  .tstage{min-height:460px}
   .fgrid{grid-template-columns:1fr}
   .cinfo div{grid-template-columns:1fr;gap:4px}
+  .mission{grid-template-columns:1fr}
+  .mission svg{width:60px}
   .clients img{height:40px}
 }
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .js .rv{opacity:1;transform:none}
+}
 </style>
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 
@@ -318,17 +398,23 @@ footer a:hover{color:var(--cyan)}
   </svg>
   <div class="wrap">
     <div>
-      <h1>Get all the cleaning services for your business and home, <em>in one place.</em></h1>
+      <h1>Get all the cleaning services for your business and home, <span>in one place.</span></h1>
       <p class="lead">Over 15 years providing professional cleaning services to Calgarians</p>
       <div class="actions">
-        <a class="btn btn-fill" href="https://urbancorecleaning.com/contact-us/">Book Your Cleaning Service</a>
+        <a class="btn btn-fill" href="https://urbancorecleaning.com/contact-us/">Book Your Cleaning Service <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a class="btn btn-line" href="https://urbancorecleaning.com/whats-new">See What's New</a>
       </div>
+      <div class="stats">
+        <div class="stat"><b><em data-n="15">0</em>+</b><span>Years of service</span></div>
+        <div class="stat"><b><em data-n="4">0</em></b><span>Cities served</span></div>
+        <div class="stat"><b><em data-n="8">0</em></b><span>Services</span></div>
+      </div>
     </div>
-    <div class="hero-visual">
-      <div class="hero-main"><img src="assets/residential.jpg" alt="Glass-fronted apartment building cleaned by Urbancore"></div>
-      <div class="hero-small"><img src="assets/snow-removal.jpg" alt="Urbancore truck ploughing snow"></div>
-      <div class="q-card">
+    <div class="hv" id="hv">
+      <div class="hv-main" data-d="10"><img src="assets/lobby.jpg" alt="Spotless office tower lobby with polished floors and glass walls"></div>
+      <div class="hv-b" data-d="-16"><img src="assets/snow-removal.jpg" alt="Urbancore truck ploughing snow"></div>
+      <div class="hv-a" data-d="-22"><img src="assets/pressure-washing.jpg" alt="Pressure washing a concrete surface"></div>
+      <div class="hv-card" data-d="18">
         <h3>Questions?</h3>
         <ul>
           <li><span>Phone</span><a href="tel:+14034753699">403-475-3699</a></li>
@@ -340,9 +426,17 @@ footer a:hover{color:var(--cyan)}
   </div>
 </section>
 
+<!-- SERVICE BAND -->
+<div class="band" aria-hidden="true">
+  <div class="band-track">
+    <span>Janitorial</span><span>Post-Construction</span><span>Window Cleaning</span><span>Maid Service</span><span>Sanitizing</span><span>Pressure Washing</span><span>Carpet Cleaning</span><span>Snow Removal</span>
+    <span>Janitorial</span><span>Post-Construction</span><span>Window Cleaning</span><span>Maid Service</span><span>Sanitizing</span><span>Pressure Washing</span><span>Carpet Cleaning</span><span>Snow Removal</span>
+  </div>
+</div>
+
 <!-- CLIENTS -->
 <section class="clients" aria-label="Our clients">
-  <div class="wrap">
+  <div class="wrap rv">
     <img src="assets/client-hm.png" alt="H&amp;M" width="166" height="59">
     <img src="assets/client-traine.png" alt="Traine Construction" width="136" height="66">
     <img src="assets/client-lacoste.png" alt="Lacoste" width="120" height="58">
@@ -355,57 +449,52 @@ footer a:hover{color:var(--cyan)}
 <!-- SERVICES -->
 <section class="services" id="cleaning-services">
   <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <div class="eyebrow">Services</div>
-        <h2>Our Professional Cleaning Services</h2>
-      </div>
+    <div class="sec-head rv">
+      <div class="chip"><i><b></b><b></b><b></b><b></b></i>Services</div>
+      <h2>Our Professional Cleaning Services</h2>
     </div>
 
-    <div class="svc">
-      <div class="svc-list" role="tablist" aria-label="Cleaning services">
-        <button class="svc-tab" role="tab" aria-selected="true" aria-controls="p1" id="t1"><span class="n">01</span>Corporate<svg class="ar" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        <button class="svc-tab" role="tab" aria-selected="false" aria-controls="p2" id="t2"><span class="n">02</span>Snow Removal<svg class="ar" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        <button class="svc-tab" role="tab" aria-selected="false" aria-controls="p3" id="t3"><span class="n">03</span>Retail<svg class="ar" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        <button class="svc-tab" role="tab" aria-selected="false" aria-controls="p4" id="t4"><span class="n">04</span>Maids<svg class="ar" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        <button class="svc-tab" role="tab" aria-selected="false" aria-controls="p5" id="t5"><span class="n">05</span>Post Construction<svg class="ar" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        <button class="svc-tab" role="tab" aria-selected="false" aria-controls="p6" id="t6"><span class="n">06</span>Carpet Cleaning<svg class="ar" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        <button class="svc-tab" role="tab" aria-selected="false" aria-controls="p7" id="t7"><span class="n">07</span>Window Cleaning<svg class="ar" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        <button class="svc-tab" role="tab" aria-selected="false" aria-controls="p8" id="t8"><span class="n">08</span>Pressure Washing &amp; Hot Wash<svg class="ar" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-      </div>
-
-      <div class="svc-panel on" id="p1" role="tabpanel" aria-labelledby="t1">
-        <div class="svc-img"><img src="assets/commercial.jpg" alt="Clean open-plan corporate office" style="object-position:50% 55%"></div>
-        <div class="svc-body"><h3>Corporate</h3><p>We specialize in commercial buildings, facilities, common areas, restaurants and all types of offices.</p><a class="btn btn-dark" href="https://urbancorecleaning.com/cleaning-services/commercial/commerical-corporate/">Book Now</a></div>
-      </div>
-      <div class="svc-panel" id="p2" role="tabpanel" aria-labelledby="t2">
-        <div class="svc-img"><img src="assets/snow-removal.jpg" alt="Urbancore truck ploughing a snowy road" style="object-position:50% 60%"></div>
-        <div class="svc-body"><h3>Snow Removal</h3><p>We take care of removing all snow from residential or commercial areas, snow ploughing.</p><a class="btn btn-dark" href="https://urbancorecleaning.com/cleaning-services/snow-removal-calgary/">Book Now</a></div>
-      </div>
-      <div class="svc-panel" id="p3" role="tabpanel" aria-labelledby="t3">
-        <div class="svc-img"><img src="assets/commercial.jpg" alt="Large clean floor area in a commercial space" style="object-position:85% 70%"></div>
-        <div class="svc-body"><h3>Retail</h3><p>We take care of public areas, public conveniences and washroom facilities, window cleaning, carpet cleaning, large floor areas, concourse surfaces.</p><a class="btn btn-dark" href="https://urbancorecleaning.com/cleaning-services/commercial/commercial-retail/">Book Now</a></div>
-      </div>
-      <div class="svc-panel" id="p4" role="tabpanel" aria-labelledby="t4">
-        <div class="svc-img pxbg"><svg viewBox="0 0 150 90" aria-hidden="true"><rect x="0" y="30" width="30" height="30" fill="#38b0d8"/><rect x="36" y="0" width="30" height="30" fill="#c8e0f0"/><rect x="36" y="36" width="30" height="30" fill="#005880"/><rect x="72" y="18" width="24" height="24" fill="#38b0d8"/><rect x="102" y="48" width="18" height="18" fill="#c8e0f0"/><rect x="72" y="60" width="18" height="18" fill="#005880"/></svg></div>
-        <div class="svc-body"><h3>Maids</h3><p>We take care of bathrooms, bedrooms, dining rooms, living room, laundry room, kitchen and any special house cleaning requests.</p><a class="btn btn-dark" href="https://urbancorecleaning.com/services/maid-services/">Book Now</a></div>
-      </div>
-      <div class="svc-panel" id="p5" role="tabpanel" aria-labelledby="t5">
-        <div class="svc-img"><img src="assets/residential.jpg" alt="Newly built apartment building" style="object-position:70% 40%"></div>
-        <div class="svc-body"><h3>Construction</h3><p>We take care of vacuuming construction, carpets, and drywall dust, cleaning interior glass and lights, dust mopping hard-surface floors, dusting window sills and all moulding.</p><a class="btn btn-dark" href="https://urbancorecleaning.com/cleaning-services/post-construction-cleaning/">Book Now</a></div>
-      </div>
-      <div class="svc-panel" id="p6" role="tabpanel" aria-labelledby="t6">
-        <div class="svc-img"><img src="assets/commercial.jpg" alt="Carpeted office floor" style="object-position:55% 90%"></div>
-        <div class="svc-body"><h3>Carpets</h3><p>We take care of your carpet cleaning requirements with professional equipment and trained employees.</p><a class="btn btn-dark" href="https://urbancorecleaning.com/services/carpet-cleaning/">Book Now</a></div>
-      </div>
-      <div class="svc-panel" id="p7" role="tabpanel" aria-labelledby="t7">
-        <div class="svc-img"><img src="assets/residential.jpg" alt="Tall glass windows on an apartment building" style="object-position:75% 75%"></div>
-        <div class="svc-body"><h3>Window Cleaning</h3><p>We take care of windows up to 40 feet, escalators, standard panes, mullions, patio doors, sills and frames, and glass displays.</p><a class="btn btn-dark" href="https://urbancorecleaning.com/cleaning-services/residential/window-cleaning-services/">Book Now</a></div>
-      </div>
-      <div class="svc-panel" id="p8" role="tabpanel" aria-labelledby="t8">
-        <div class="svc-img pxbg"><svg viewBox="0 0 150 90" aria-hidden="true"><rect x="0" y="30" width="30" height="30" fill="#c8e0f0"/><rect x="36" y="0" width="30" height="30" fill="#38b0d8"/><rect x="36" y="36" width="30" height="30" fill="#005880"/><rect x="72" y="18" width="24" height="24" fill="#c8e0f0"/><rect x="102" y="48" width="18" height="18" fill="#38b0d8"/><rect x="72" y="60" width="18" height="18" fill="#005880"/></svg></div>
-        <div class="svc-body"><h3>Pressure Washing</h3><p>Siding | Decks | Gutters<br>Sidewalks | Driveways | More</p><a class="btn btn-dark" href="https://urbancorecleaning.com/services/specialty/">Book Now</a></div>
-      </div>
+    <div class="bento">
+      <a class="bc a rv" href="https://urbancorecleaning.com/cleaning-services/commercial/commerical-corporate/">
+        <img src="assets/commercial.jpg" alt="Clean open-plan corporate office">
+        <span class="no">01</span>
+        <div class="in"><h3>Corporate</h3><p>We specialize in commercial buildings, facilities, common areas, restaurants and all types of offices.</p><span class="go">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="bc b rv d1" href="https://urbancorecleaning.com/cleaning-services/snow-removal-calgary/">
+        <img src="assets/snow-removal.jpg" alt="Urbancore truck ploughing a snowy road" style="object-position:50% 62%">
+        <span class="no">02</span>
+        <div class="in"><h3>Snow Removal</h3><p>We take care of removing all snow from residential or commercial areas, snow ploughing.</p><span class="go">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="bc c rv d2" href="https://urbancorecleaning.com/cleaning-services/commercial/commercial-retail/">
+        <img src="assets/lobby.jpg" alt="Polished lobby floor and glass walls" style="object-position:50% 85%">
+        <span class="no">03</span>
+        <div class="in"><h3>Retail</h3><p>We take care of public areas, public conveniences and washroom facilities, window cleaning, carpet cleaning, large floor areas, concourse surfaces.</p><span class="go">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="bc d rv d1" href="https://urbancorecleaning.com/services/maid-services/">
+        <img src="assets/living-room.jpg" alt="Tidy living room with folded towels and a spray bottle" style="object-position:50% 70%">
+        <span class="no">04</span>
+        <div class="in"><h3>Maids</h3><p>We take care of bathrooms, bedrooms, dining rooms, living room, laundry room, kitchen and any special house cleaning requests.</p><span class="go">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="bc e rv d2" href="https://urbancorecleaning.com/cleaning-services/residential/window-cleaning-services/">
+        <img src="assets/residential.jpg" alt="Tall glass windows on an apartment building" style="object-position:78% 80%">
+        <span class="no">07</span>
+        <div class="in"><h3>Window Cleaning</h3><p>We take care of windows up to 40 feet, escalators, standard panes, mullions, patio doors, sills and frames, and glass displays.</p><span class="go">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="bc f rv" href="https://urbancorecleaning.com/cleaning-services/post-construction-cleaning/">
+        <img src="assets/residential.jpg" alt="Newly built apartment building" style="object-position:12% 45%">
+        <span class="no">05</span>
+        <div class="in"><h3>Post Construction</h3><p>We take care of vacuuming construction, carpets, and drywall dust, cleaning interior glass and lights, dust mopping hard-surface floors, dusting window sills and all moulding.</p><span class="go">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="bc g rv d1" href="https://urbancorecleaning.com/services/carpet-cleaning/">
+        <img src="assets/living-room.jpg" alt="Clean patterned rug in a living room" style="object-position:50% 100%">
+        <span class="no">06</span>
+        <div class="in"><h3>Carpets</h3><p>We take care of your carpet cleaning requirements with professional equipment and trained employees.</p><span class="go">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="bc h rv d2" href="https://urbancorecleaning.com/services/specialty/">
+        <img src="assets/pressure-washing.jpg" alt="Pressure washer cleaning a concrete surface" style="object-position:50% 45%">
+        <span class="no">08</span>
+        <div class="in"><h3>Pressure Washing &amp; Hot Wash</h3><p>Siding | Decks | Gutters<br>Sidewalks | Driveways | More</p><span class="go">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
     </div>
   </div>
 </section>
@@ -414,60 +503,72 @@ footer a:hover{color:var(--cyan)}
 <section class="promise">
   <div class="wrap">
     <div class="promise-top">
-      <div>
-        <div class="eyebrow">Our promise to our clients</div>
+      <div class="rv">
+        <div class="chip"><i><b></b><b></b><b></b><b></b></i>Our promise to our clients</div>
         <h2>Experienced, reliable and professionally trained cleaners.</h2>
         <p>At Urbancore Cleaning we are proud to offer our professional cleaning services! Our Areas of service are:</p>
         <div class="areas"><span>Airdrie</span><span>Calgary</span><span>Edmonton</span><span>Red Deer</span></div>
         <p class="strong">We have independent and specialized teams that focus on one area of expertise in order to provide you with our best.</p>
       </div>
-      <div class="promise-img">
+      <div class="pimg rv d2">
         <img src="assets/customer-service.jpg" alt="Customer Satisfaction written in a notebook" width="350" height="255">
       </div>
     </div>
 
     <div class="crews">
-      <div class="crew"><b>01</b><p>Our Window Cleaning crew handles your residential and commercial window cleaning needs.</p></div>
-      <div class="crew"><b>02</b><p>Our Residential Cleaning crew cares for your house cleaning, move-in and move-out cleanings and handles cleaning for new construction projects.</p></div>
-      <div class="crew"><b>03</b><p>Our Commercial Crew is in charge of your janitorial services, building maintenance, and office cleaning services.</p></div>
+      <div class="crew rv"><b>01</b><p>Our Window Cleaning crew handles your residential and commercial window cleaning needs.</p></div>
+      <div class="crew rv d1"><b>02</b><p>Our Residential Cleaning crew cares for your house cleaning, move-in and move-out cleanings and handles cleaning for new construction projects.</p></div>
+      <div class="crew rv d2"><b>03</b><p>Our Commercial Crew is in charge of your janitorial services, building maintenance, and office cleaning services.</p></div>
     </div>
 
-    <p class="mission">Urbancore Cleaning&rsquo;s mission is to provide you with all the cleaning services may need while saving you time, money, and of course without compromising the quality and professionalism you deserve.</p>
+    <div class="mission rv">
+      <svg viewBox="0 0 90 90" aria-hidden="true"><rect x="0" y="30" width="26" height="26" fill="#0088c0"/><rect x="32" y="0" width="26" height="26" fill="#38b0d8"/><rect x="32" y="32" width="26" height="26" fill="#c8e0f0"/><rect x="64" y="18" width="22" height="22" fill="#38b0d8"/><rect x="64" y="46" width="16" height="16" fill="#0088c0"/></svg>
+      <p>Urbancore Cleaning&rsquo;s mission is to provide you with all the cleaning services may need while saving you time, money, and of course without compromising the quality and professionalism you deserve.</p>
+    </div>
   </div>
 </section>
 
 <!-- TESTIMONIALS -->
 <section class="testi">
   <div class="wrap">
-    <div class="eyebrow">Testimonials</div>
-    <h2>What our Customers say</h2>
-    <div class="tgrid">
-      <figure class="tcard">
+    <div class="testi-head rv">
+      <div>
+        <div class="chip"><i><b></b><b></b><b></b><b></b></i>Testimonials</div>
+        <h2>What our Customers say</h2>
+      </div>
+      <div class="tnav">
+        <button id="tprev" aria-label="Previous testimonial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <button id="tnext" aria-label="Next testimonial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+    <div class="tstage rv" id="tstage">
+      <figure class="ts on">
         <blockquote>Thank you for your services, you did a great job with such a large house. Your girls were great and got into every nook and cranny. Every one is commenting about it. Well done. Our clients are happy, my boss is happy. Very pleased.</blockquote>
-        <figcaption class="who">R. W. <span>Calgary Project Manager</span></figcaption>
+        <figcaption class="who"><div class="av">RW</div><div><b>R. W.</b><span>Calgary Project Manager</span></div></figcaption>
       </figure>
-      <figure class="tcard">
+      <figure class="ts">
         <blockquote>Thank you again for the extraordinary effort you and your team made with Le Chateau! You guys are awesome!</blockquote>
-        <figcaption class="who">Stewart Craig <span>Calgary Builder</span></figcaption>
+        <figcaption class="who"><div class="av">SC</div><div><b>Stewart Craig</b><span>Calgary Builder</span></div></figcaption>
       </figure>
-      <figure class="tcard">
+      <figure class="ts">
         <blockquote>Your staff were so much help. I appreciate the service and all the help. Thank you for the professional service.</blockquote>
-        <figcaption class="who">Hannah M <span>Calgary Event Planner</span></figcaption>
+        <figcaption class="who"><div class="av">HM</div><div><b>Hannah M</b><span>Calgary Event Planner</span></div></figcaption>
       </figure>
-      <figure class="tcard">
+      <figure class="ts">
         <blockquote>I&rsquo;ve been privileged and spoiled by your wonderful team for over 10 years without even the slightest hitch. You have wonderful conscientious people. We value and appreciate that.</blockquote>
-        <figcaption class="who">Shirley R. <span>Calgary Home Owner</span></figcaption>
+        <figcaption class="who"><div class="av">SR</div><div><b>Shirley R.</b><span>Calgary Home Owner</span></div></figcaption>
       </figure>
     </div>
+    <div class="dots" id="tdots"><i class="on"></i><i></i><i></i><i></i></div>
   </div>
 </section>
 
 <!-- CAREERS -->
 <section class="careers">
   <div class="wrap">
-    <div class="careers-photo"><img src="assets/crew-snow-clearing.jpg" alt="Urbancore technician clearing snow and ice outside an apartment building" width="225" height="300"></div>
-    <div>
-      <div class="eyebrow">Careers</div>
+    <div class="cphoto rv"><img src="assets/crew-snow-clearing.jpg" alt="Urbancore technician clearing snow and ice outside an apartment building" width="225" height="300"></div>
+    <div class="rv d1">
+      <div class="chip"><i><b></b><b></b><b></b><b></b></i>Careers</div>
       <h2>Come join us!</h2>
       <div class="jobs">
         <article class="job">
@@ -475,14 +576,14 @@ footer a:hover{color:var(--cyan)}
             <h3>Window Cleaning / Snow Removal Technician</h3>
             <p>Recognized as a leader in facility and property maintenance services industry, Urbancore exceeds client expectations and raises the bar for cleaning standards and employee satisfaction. We offer a competitive wage, training, advancement opportunities.</p>
           </div>
-          <a href="https://urbancorecleaning.com/career/window-cleaning-snow-removal-technician/">View job</a>
+          <a href="https://urbancorecleaning.com/career/window-cleaning-snow-removal-technician/" aria-label="View job: Window Cleaning / Snow Removal Technician"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </article>
         <article class="job">
           <div>
             <h3>Window Cleaner / Snow Removal Technician</h3>
             <p>You are the face of the company, your hard work will be reflected on crystal clear windows that will make customers feel happy. Come join us!</p>
           </div>
-          <a href="https://urbancorecleaning.com/career/window-cleaner-snow-removal-technician-job/">View job</a>
+          <a href="https://urbancorecleaning.com/career/window-cleaner-snow-removal-technician-job/" aria-label="View job: Window Cleaner / Snow Removal Technician"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </article>
       </div>
       <div class="more"><a class="btn btn-dark" href="https://urbancorecleaning.com/careers/">Careers</a></div>
@@ -493,15 +594,18 @@ footer a:hover{color:var(--cyan)}
 <!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="wrap">
-    <div>
-      <h2>Get all the cleaning services for your business and home, in one place.</h2>
-      <a class="btn btn-fill" href="https://urbancorecleaning.com/contact-us/">Book Your Cleaning Service</a>
+    <div class="cbox rv">
+      <svg class="px" style="right:-20px;top:-20px;width:240px" viewBox="0 0 150 90" aria-hidden="true"><rect x="0" y="30" width="30" height="30" fill="#c8e0f0"/><rect x="36" y="0" width="30" height="30" fill="#38b0d8"/><rect x="36" y="36" width="30" height="30" fill="#fff"/><rect x="72" y="18" width="24" height="24" fill="#38b0d8"/><rect x="102" y="48" width="18" height="18" fill="#c8e0f0"/></svg>
+      <div>
+        <h2>Get all the cleaning services for your business and home, in one place.</h2>
+        <a class="btn btn-fill" href="https://urbancorecleaning.com/contact-us/">Book Your Cleaning Service <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <dl class="cinfo">
+        <div><dt>Urbancore Cleaning</dt><dd>2632 24St SW<br>Calgary, AB<br>T2T 5H9</dd></div>
+        <div><dt>Phone</dt><dd><a href="tel:+14034753699">(403) 475-3699</a> Office<br><a href="tel:+18004758080">1-800-475-8080</a> Toll-free<br><a href="tel:+14034754529">(403) 475-4529</a></dd></div>
+        <div><dt>Email</dt><dd><a href="mailto:contact@urbancorecleaning.com">contact@urbancorecleaning.com</a></dd></div>
+      </dl>
     </div>
-    <dl class="cinfo">
-      <div><dt>Urbancore Cleaning</dt><dd>2632 24St SW<br>Calgary, AB<br>T2T 5H9</dd></div>
-      <div><dt>Phone</dt><dd><a href="tel:+14034753699">(403) 475-3699</a> Office<br><a href="tel:+18004758080">1-800-475-8080</a> Toll-free<br><a href="tel:+14034754529">(403) 475-4529</a></dd></div>
-      <div><dt>Email</dt><dd><a href="mailto:contact@urbancorecleaning.com">contact@urbancorecleaning.com</a></dd></div>
-    </dl>
   </div>
 </section>
 </main>
@@ -533,7 +637,7 @@ footer a:hover{color:var(--cyan)}
     </div>
     <div>
       <h4>Social Media</h4>
-      <p style="margin-bottom:12px">Follow us on:</p>
+      <p style="margin-bottom:14px">Follow us on:</p>
       <a class="fb" href="https://www.facebook.com/urbancorecleaning/" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8h2.7l.5-3.2h-3.2V7.9c0-.9.4-1.7 1.8-1.7h1.5V3.4S15.5 3.2 14.3 3.2c-2.6 0-4.3 1.6-4.3 4.4v2.2H7.3V13H10v8z"/></svg>
         Facebook
@@ -554,30 +658,52 @@ footer a:hover{color:var(--cyan)}
 
 <script>
 (function(){
-  var tabs=document.querySelectorAll('.svc-tab'),panels=document.querySelectorAll('.svc-panel');
-  function show(i){
-    tabs.forEach(function(t,k){t.setAttribute('aria-selected',k===i?'true':'false');t.tabIndex=k===i?0:-1});
-    panels.forEach(function(p,k){p.classList.toggle('on',k===i)});
-  }
-  tabs.forEach(function(t,i){
-    t.addEventListener('click',function(){show(i)});
-    t.addEventListener('mouseenter',function(){if(window.innerWidth>1060)show(i)});
-    t.addEventListener('keydown',function(e){
-      if(e.key==='ArrowDown'||e.key==='ArrowRight'){e.preventDefault();var n=(i+1)%tabs.length;show(n);tabs[n].focus()}
-      if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();var p=(i-1+tabs.length)%tabs.length;show(p);tabs[p].focus()}
-    });
-  });
+  /* mobile nav */
   var b=document.getElementById('burger'),n=document.getElementById('nav');
   b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});
   document.querySelectorAll('.has-sub>a').forEach(function(a){
     a.addEventListener('click',function(e){
-      if(window.innerWidth<=900){
-        var li=a.parentNode;
-        if(!li.classList.contains('open')){e.preventDefault();li.classList.add('open')}
-      }
+      if(window.innerWidth<=900){var li=a.parentNode;if(!li.classList.contains('open')){e.preventDefault();li.classList.add('open')}}
     });
   });
   n.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){if(a.getAttribute('href').charAt(0)==='#')n.classList.remove('open')})});
+
+  /* scroll reveal */
+  var rv=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+    rv.forEach(function(el){io.observe(el)});
+  }else{rv.forEach(function(el){el.classList.add('in')})}
+
+  /* counters */
+  document.querySelectorAll('[data-n]').forEach(function(el){
+    var t=+el.getAttribute('data-n'),s=null;
+    function step(ts){if(!s)s=ts;var p=Math.min((ts-s)/1400,1);el.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)}
+    requestAnimationFrame(step);
+  });
+
+  /* hero parallax */
+  var hv=document.getElementById('hv');
+  if(hv&&window.matchMedia('(hover:hover)').matches){
+    var kids=hv.children;
+    hv.parentNode.parentNode.addEventListener('mousemove',function(e){
+      var r=hv.getBoundingClientRect(),x=(e.clientX-(r.left+r.width/2))/r.width,y=(e.clientY-(r.top+r.height/2))/r.height;
+      for(var i=0;i<kids.length;i++){var d=+kids[i].getAttribute('data-d')||0;kids[i].style.transform=(kids[i].classList.contains('hv-a')?'rotate(-5deg) ':kids[i].classList.contains('hv-b')?'rotate(4deg) ':'')+'translate('+(x*d)+'px,'+(y*d)+'px)'}
+    });
+  }
+
+  /* testimonials */
+  var slides=document.querySelectorAll('.ts'),dots=document.querySelectorAll('#tdots i'),cur=0,timer;
+  function go(i){
+    cur=(i+slides.length)%slides.length;
+    slides.forEach(function(s,k){s.classList.toggle('on',k===cur)});
+    dots.forEach(function(d,k){d.classList.toggle('on',k===cur)});
+  }
+  function auto(){clearInterval(timer);timer=setInterval(function(){go(cur+1)},8000)}
+  document.getElementById('tnext').addEventListener('click',function(){go(cur+1);auto()});
+  document.getElementById('tprev').addEventListener('click',function(){go(cur-1);auto()});
+  dots.forEach(function(d,k){d.addEventListener('click',function(){go(k);auto()})});
+  auto();
 })();
 </script>
 </body>
